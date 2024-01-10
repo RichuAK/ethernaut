@@ -13,7 +13,7 @@ pragma solidity ^0.8.0;
  * Answer to the question: `transfer` or `send` will fail because of limited 2300 gas stipend.
  * `receive` of King would require more than 2300 gas to execute successfully.
  *
- *
+ * Another protip: call in combination with re-entrancy guard is the recommended method to use after December 2019.
  * Contract deployed at 0xF6Dd68a0ACa03BC141541274A3bAaa5626160259 in Sepolia
  */
 

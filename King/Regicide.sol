@@ -8,6 +8,12 @@ pragma solidity ^0.8.0;
  * The trouble wasn't the submitting instance part: knew that it was just a matter of reverting inside a receive() function
  * The trouble, however, was in becoming King in the first place.
  * All transactions were reverting when using .transfer()and .send() functions. .call() works, and I don't have much idea why!
+ *
+ *
+ * Answer to the question: `transfer` or `send` will fail because of limited 2300 gas stipend.
+ * `receive` of King would require more than 2300 gas to execute successfully.
+ *
+ *
  * Contract deployed at 0xF6Dd68a0ACa03BC141541274A3bAaa5626160259 in Sepolia
  */
 

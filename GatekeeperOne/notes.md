@@ -25,3 +25,11 @@ Modifier one gas: 46
 Tester gateKey for remixVM: 0x3fcb875f0000ddc4
 
 After testing on Remix: gasleft() is what's failing.
+
+GasConsumed in a prototype: 22149 ?!!
+
+2nd and 3rd Try: 5049
+
+4th: 2249
+
+5th: 5049

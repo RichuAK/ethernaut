@@ -12,7 +12,7 @@ contract TestGateKeeperOne is Test {
     GatekeeperOne gateKeeperOne;
     EnterGateKeeperOne enterGateKeeperOne;
     // bytes8 gateKey = bytes8(0x827279cf00002266);
-    uint256 gas = 10000000;
+    uint256 gas = 999999;
 
     function setUp() external {
         DeployGateKeeperOne deployGateKeeperOne = new DeployGateKeeperOne();
@@ -37,6 +37,15 @@ contract TestGateKeeperOne is Test {
         // console.log("Msg Sender: ", msg.sender);
         // console.log("Address Balance:", address(tx.origin).balance);
         enterGateKeeperOne.youShallPass(gassy, 0x83f33e0700001f38);
+        assert(gateKeeperOne.entrant() == 0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38);
+    }
+
+    function testPassesGateTwo() public {
+        vm.prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266);
+        console.log("Sender address: ", tx.origin);
+        console.log("Msg Sender: ", msg.sender);
+        console.log("Address Balance:", address(tx.origin).balance);
+        enterGateKeeperOne.youShallPass(gas, 0x83f33e0700001f38);
         assert(gateKeeperOne.entrant() == 0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38);
     }
 }

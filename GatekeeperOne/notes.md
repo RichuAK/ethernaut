@@ -48,3 +48,11 @@ gateKey: 0x83f33e0700001f38
 `cast` method to send eth to a different address on a local chain, and then use that address using `vm.prank()` for testing:
 
 cast send --value 1000000000000000000000 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 0xcF78399B272E71F23F00b453005e9ba0EFa9FcDc
+
+### Remix Debugger
+
+Remaining gas: 2973324
+
+Gasused: 26676
+
+2973324

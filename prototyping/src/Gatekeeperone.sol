@@ -2,6 +2,9 @@
 pragma solidity ^0.8.0;
 
 contract GatekeeperOne {
+    // error GateKeeperOne__BreaksgasValue(uint256 gas);
+    // error DSCEngine__BreaksHealthFactor(uint256 healthFactor);
+
     address public entrant;
 
     modifier gateOne() {
@@ -13,6 +16,13 @@ contract GatekeeperOne {
         require(gasleft() % 8191 == 0);
         _;
     }
+
+    // modifier gateTwo() {
+    //     if (gasleft() % 8191 != 0) {
+    //         revert GateKeeperOne__BreaksgasValue(gasleft());
+    //     }
+    //     _;
+    // }
 
     modifier gateThree(bytes8 _gateKey) {
         require(uint32(uint64(_gateKey)) == uint16(uint64(_gateKey)), "GatekeeperOne: invalid gateThree part one");

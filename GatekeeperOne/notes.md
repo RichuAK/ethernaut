@@ -5,9 +5,16 @@ It took me 3 days or so to get past gateTwo, and even then it was a brute force 
 1. gateOne - you just reroute the transaction through a contract to get past this one.
 2. gateThree - the gateKey was figured out by using `chisel` in Foundry :
    `uint64(uint160(tx.origin))` gives a hex value: take the last 16 digits, or the last 8 bytes. But then make the second-last two bytes or the four digits after the first 8 digits(4 bytes) 0, or nullify them. (There could be a better way of doing it, more technical and cool. I did this way)
-3. gateTwo - This was the one tough to crack - I tried deploying on RemixVM and then debugging the transactions, but then `require(gasleft()%8191==0)` was never shown to be hitting on the debugger.
-   1. `forge test -vvvv` was also not helpful, and using a custom error with a `gasleft()` `revert` would have messed up the gas too.
-   2. So in the end went brute force: the gas sent to the contract begins at 81910, which is a multiple of 8191, and then loops till the next multiple of 8191. Works, but not elegant.
+3. gateTwo - This was the one tough to crack - I tried deploying on RemixVM and then debugging the transactions, but then
+
+```solidity
+require(gasleft() % 8191==0);
+```
+
+was never shown to be hitting on the debugger.
+
+1.  `forge test -vvvv` was also not helpful, and using a custom error with a `gasleft()` `revert` would have messed up the gas too.
+2.  So in the end went brute force: the gas sent to the contract begins at 81910, which is a multiple of 8191, and then loops till the next multiple of 8191. Works, but not elegant.
 
 I'm keeping all the notes below, just to see the thought process later.
 

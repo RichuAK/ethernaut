@@ -15,4 +15,4 @@ The first one clearly is about routing the transaction through a contract, but t
 
 Turns out there's a way, as there usually is.
 
-At the time of contract deployment, when `constructor` is being executed, the code size of the contract is zero. It's only after the `constructor` is executed that the contract node is set. New Info!
+At the time of contract deployment, when `constructor` is being executed, the code size of the contract is zero. It's only after the `constructor` is executed that the contract code is set. New Info!

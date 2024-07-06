@@ -31,7 +31,7 @@ PUSH1 0x80
 RETURN
 ```
 
-And the corresponding bytecode is `0x602a60005260206000f3`. 10 bytes in total.
+And the corresponding bytecode is `0x602a60805260206080f3`. 10 bytes in total.
 
 With the full creation code, the opcode becomes
 

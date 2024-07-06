@@ -70,3 +70,24 @@ And the corresponding bytecode: `0x608060405234801561000f575f80fd5b50600a8061001
 When all's said and done, the contract is [this](https://sepolia.etherscan.io/address/0x137f3f4e1a1edec0240b6d4ed4c0bd3c248c4a57#code).
 
 It was an interesting journey. I struggled a lot, which means I learned a lot!
+
+# Update
+
+Turns out the free memory pointer wasn't important: I just had missed the proper opcode combination at the 0 memory slot in my wanderings.
+
+THis runtime opcode works:
+
+```
+PUSH1 0x2a
+PUSH1 0x00
+MSTORE
+PUSH1 0x20
+PUSH1 0x00
+RETURN
+```
+
+`0x602a60405260206000f3`
+
+It's deployed at [this address](https://sepolia.etherscan.io/address/0x7a673410D101A9B35F9E29471c4bb716dd74547C#code)
+
+The creation code remains the same. I'd just missed deploying this particular combination early in my process: this should have been the obvious first choice, and I missed it. Gave me a lot more pain, but I think I learned more. Such is life.

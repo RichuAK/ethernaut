@@ -16,6 +16,6 @@ So that's one part. It took me another 10 minutes to click that that's the total
 
 Now, how to find the index number of storage slot 0?
 
-Simple math: `keccak256(1)` = `80084422859880547211683076133703299733277748156566366325829078699459944778998`, so that's where the array starts. Assuming overflow/looping over, slot 0 would be the difference between `2^256` and this number. Which happens to be case.
+Simple math: `keccak256(1)` = `80084422859880547211683076133703299733277748156566366325829078699459944778998`, so that's where the array starts. Assuming overflow/looping over, slot 0 would be the difference between `2^256` and this number. Which happens to be the case.
 
-So you call `revise` with `35707666377435648211887908874984608119992236509074197713628505308453184860938` and your address as the argument. Not too bad.
+So you call `revise` with `35707666377435648211887908874984608119992236509074197713628505308453184860938` and your address as the arguments. Not too bad.

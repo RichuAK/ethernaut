@@ -45,9 +45,21 @@ The `assert(false)` really should have worked, but it didn't. While the transfer
 
 Turns out it's a quirk of the solidity version, and the differences in how the code gets compiled into opcodes.
 
-[This post](https://ethereum.stackexchange.com/questions/107882/ethernaut-level-20-denial-probably-no-longer-solvable-why)
+[This post](https://ethereum.stackexchange.com/questions/107882/ethernaut-level-20-denial-probably-no-longer-solvable-why) shows that the code works for Solidity `0.8.0`, but not `0.8.5` and higher. It didn't work for `0.8.0` for me, and I had to change it to `0.6.0` to make it work.
 
-Shows that the code works for Solidity `0.8.0`, but not `0.8.5` and higher. It didn't work for `0.8.0` for me, and I had to change it to `0.6.0` to make it work.
+## Opcodes and in-line assembly
+
+The issue seems to be that in recent versions of solidity, the `assert(false)` compiles down to a `REVERT` opcode, rather than an `INVALID` opcode for some reason. We want an `INVALID` opcode to consume all the gas. The solution? In-line assembly that would ensure an `INVALID` opcode:
+
+```solidity
+fallback() external payable{
+        assembly {
+            invalid()
+        }
+    }
+```
+
+Doesn't matter with the solidity version, of course.
 
 # Lesson 5: Other solutions, and a larger perspective to look at DoS.
 

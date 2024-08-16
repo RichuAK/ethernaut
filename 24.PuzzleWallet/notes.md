@@ -15,7 +15,7 @@ So now you can be the `owner` of `PuzzleWallet`. So far so good.
 
 But the overarching aim is to become the `admin` of `PuzzleProxy`, which can be manipulated by manipulating `maxBalance` in `PuzzleWallet`.
 
-`PuzzleWallet::setMaxBalance` has a catch though: the balance of the contract needs to zero. So we need to drain the contract balance.
+`PuzzleWallet::setMaxBalance` has a catch though: the balance of the contract needs to be zero. So we need to drain the contract balance.
 
 A small caveat is that `setMaxBalance` can only be called by someone who's `whiteListed`, but that's no big deal: we can whitelist anyone since we're the `owner` now.
 
@@ -34,7 +34,7 @@ Reentrancy doesn't work in `PuzzleWallet:execute` since it follows CEI.
 
 `PuzzleWallet::deposit` looks airtight.
 
-`PuzzleWallet::multicall` seems to well-written, with `deposit.selector` checks to avoid multiple `deposit` calls and everything.
+`PuzzleWallet::multicall` seems to be well-written, with `deposit.selector` checks to avoid multiple `deposit` calls and everything.
 
 But.
 
@@ -44,7 +44,7 @@ address(this).delegatecall(data[i]);
 
 A `delegatecall` on itself? That's kinda new. You only ever delegate to some other contract. What is this?
 
-The contract takes its own logic and passes it onto itself, in its own context. Inception? Matrix?
+The contract takes its own logic and passes it onto itself, in its own context. Inception? Matrix? Recursion?
 
 The crucial element to realize is that when you say logic, it means all logic, including the logic of the function which does the `delegatecall` as well. So you could delegate to `PuzzleWallet::multicall` from within `PuzzleWallet:multicall`. And `msg.value` and `msg.sender` persist in `delegatecalls`. Bingo.
 

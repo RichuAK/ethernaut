@@ -57,4 +57,4 @@ So here's the calldata I used:
 
 which asks the EVM to look for the arguments after a 0x60 byte offset, skipping the `switchOff()` selector and effectively passing in the `switchOn()` selector.
 
-And in order to pass this in, a new contract was deployed which can call any contract with any calldata.
+And in order to pass this in, a new contract was deployed which can call any contract with any calldata, which is basically general-purpose, and is deployed [here](https://sepolia.etherscan.io/address/0x6a86b69deb94fa740e66ace6ec1a0e8105129ce9#code).

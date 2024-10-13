@@ -2,13 +2,28 @@
 
 Much of the code in this one is just to confuse you. The trick is to not lose your focus away from what's valid.
 
-`GateOne` makes sure that you interact through a contract, nothing more.
+`gateOne` makes sure that you interact through a contract, nothing more.
 
-`GateTwo` is a tad bit more tricky.
+```solidity
+ modifier gateOne() {
+        require(msg.sender == owner);
+        require(tx.origin != owner);
+        _;
+    }
+```
 
-The logic is divided between the two contracts.
+`gateTwo` is a tad bit more tricky.
 
-## GateKeeperThree.sol
+```solidity
+modifier gateTwo() {
+        require(allowEntrance == true);
+        _;
+    }
+```
+
+This logic is divided between the two contracts.
+
+**GateKeeperThree.sol**
 
 ```solidity
 
@@ -24,7 +39,7 @@ function getAllowance(uint256 _password) public {
     }
 ```
 
-## SimpleTrick.sol
+**SimpleTrick.sol**
 
 ```solidity
 
@@ -43,6 +58,18 @@ So you'll have to pass in the correct `password` to set `allowEntrance` to `true
 
 You can read the storage slot using `cast storage` to get the password, but that's an additional work and you're lazy. Might as well do `getAllowance` in the same transaction in which `SimpleTrick` is deployed since you're writing a contract anyway.
 
+`gateThree` makes sure the you've sent some `eth` to `GateKeeperThree` and that you `revert` when someone sends some `eth` to you.
+
+```solidity
+ modifier gateThree() {
+        if (address(this).balance > 0.001 ether && payable(owner).send(0.001 ether) == false) {
+            _;
+        }
+    }
+```
+
+So you get ready to enter. All the work is always about getting ready to enter.
+
 ```solidity
 function setUpStuff() public payable {
         //become owner
@@ -59,4 +86,4 @@ function setUpStuff() public payable {
 
 And that's it. All that's left to do is enter.
 
-The Gates of Valhalla shall open and receive you in all its glory! Witness!!!
+The Gates of Valhalla shall open up and receive you in all its glory! Witness!!!

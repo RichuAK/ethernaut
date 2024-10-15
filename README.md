@@ -1,2 +1,3 @@
 # ethernaut
-OpenZeppelin's Ethernaut CTF
+
+OpenZeppelin's [Ethernaut](https://ethernaut.openzeppelin.com) CTF
